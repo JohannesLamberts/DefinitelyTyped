@@ -11,8 +11,11 @@ import {
     Checkbox,
     Collage,
     Column,
+    CompositeZIndex,
     Container,
     Divider,
+    FixedZIndex,
+    Flex,
     Flyout,
     GroupAvatar,
     Heading,
@@ -42,6 +45,7 @@ import {
     Switch,
     Table,
     Tabs,
+    Tag,
     TapArea,
     Text,
     TextArea,
@@ -49,15 +53,27 @@ import {
     Toast,
     Tooltip,
     Typeahead,
+    Upsell,
+    useFocusVisible,
+    useReducedMotion,
     Video,
-    FixedZIndex,
-    CompositeZIndex,
 } from 'gestalt';
 import * as React from 'react';
 
 const MasonryComponent = ({}) => {
     return <div>Masonry</div>;
 };
+
+const CheckUseFocusVisible = () => {
+    const { isFocusVisible } = useFocusVisible();
+    return <>{isFocusVisible ? 'is visible' : 'no visible'}</>;
+};
+
+const CheckUseReducedMotion = () => {
+    const shouldReduceMotion = useReducedMotion();
+    return <>{shouldReduceMotion ? 'reduced' : 'not reduced'}</>;
+};
+
 <ActivationCard
     status="notStarted"
     statusMessage="Not started"
@@ -103,6 +119,7 @@ const MasonryComponent = ({}) => {
 <Column span={1} />;
 <Container />;
 <Divider />;
+<Flex />;
 <Flyout onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
@@ -237,9 +254,10 @@ const MasonryComponent = ({}) => {
     activeTabIndex={1}
     onChange={() => {}}
 />;
+<Tag disabled text="New" />;
 <Text />;
 <TextArea id="id" onChange={() => {}} />;
-<TextField id="email" onChange={({ value }) => value} />;
+<TextField id="email" onChange={({ value }) => value} tags={[<Tag text="Foo" />, <Tag text="Bar" />]} />;
 <GroupAvatar collaborators={[{ name: 'nicolas' }]} />;
 <Toast color="red" text={<>Oops! Something went wrong. Please try again later.</>} />;
 <Tooltip text="tooltip">
@@ -251,6 +269,12 @@ const MasonryComponent = ({}) => {
     noResultText="No Results"
     options={[{ value: 'Hello', label: 'World' }]}
     placeholder="Select a Label"
+/>;
+<Upsell
+    message="Hello world"
+    imageData={{
+        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32} />,
+    }}
 />;
 <Video
     aspectRatio={853 / 480}
